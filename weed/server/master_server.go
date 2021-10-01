@@ -2,7 +2,6 @@ package weed_server
 
 import (
 	"fmt"
-	"github.com/chrislusf/seaweedfs/weed/pb"
 	"net/http"
 	"net/http/httputil"
 	"net/url"
@@ -11,6 +10,8 @@ import (
 	"strings"
 	"sync"
 	"time"
+
+	"github.com/chrislusf/seaweedfs/weed/pb"
 
 	"github.com/chrislusf/raft"
 	"github.com/gorilla/mux"
@@ -117,6 +118,7 @@ func NewMasterServer(r *mux.Router, option *MasterOption, peers []pb.ServerAddre
 
 	ms.guard = security.NewGuard(ms.option.WhiteList, signingKey, expiresAfterSec, readSigningKey, readExpiresAfterSec)
 
+	// git
 	handleStaticResources2(r)
 	r.HandleFunc("/", ms.proxyToLeader(ms.uiStatusHandler))
 	r.HandleFunc("/ui/index.html", ms.uiStatusHandler)
